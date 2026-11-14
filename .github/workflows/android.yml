@@ -37,6 +37,7 @@ jobs:
             min_sdk: "26"
             version_code: "2407"
             version_name: "2.4-android-10-arm32"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,9 +82,7 @@ jobs:
           if [ -n "${{ matrix.overlay }}" ]; then
             OVERLAY="--overlay-triplets=${{ github.workspace }}/${{ matrix.overlay }}"
           fi
-          # shellcheck disable=SC2086
-          ./vcpkg/vcpkg install curl libogg libpng libvorbis libvpx libyuv opus \
-            "sdl2[vulkan]" zlib --triplet "${{ matrix.triplet }}" \
+          ./vcpkg/vcpkg install --triplet "${{ matrix.triplet }}" \
             $OVERLAY --host-triplet x64-linux
 
       - name: Download game assets
